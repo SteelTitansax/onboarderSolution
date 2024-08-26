@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "on-boarder-part-1-client-side-solution",
+    "id": "237a1fc6-7149-4330-b1fa-da33a1fd4d4f",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.19.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "onBoarder_part1 description"
+      },
+      "longDescription": {
+        "default": "onBoarder_part1 description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "on-boarder-part-1 Feature",
+        "description": "The feature that activates elements of the on-boarder-part-1 solution.",
+        "id": "52c1d25c-64c6-4305-a0cf-ed0f418b0abb",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/on-boarder-part-1.sppkg"
+  }
+}

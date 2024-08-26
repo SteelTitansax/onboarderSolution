@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "onboarder-part-1-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/onboarderPart1/OnboarderPart1WebPart.js",
+          "manifest": "./src/webparts/onboarderPart1/OnboarderPart1WebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "OnboarderPart1WebPartStrings": "lib/webparts/onboarderPart1/loc/{locale}.js"
+  }
+}

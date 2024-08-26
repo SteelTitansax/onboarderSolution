@@ -1,0 +1,21 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "18.20.4",
+    "sdksVersions": {
+      "@microsoft/microsoft-graph-client": "3.0.2",
+      "@microsoft/teams-js": "2.12.0"
+    },
+    "version": "1.19.0",
+    "libraryName": "on-boarder-part-1",
+    "libraryId": "237a1fc6-7149-4330-b1fa-da33a1fd4d4f",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "onBoarder_part1",
+    "solutionShortDescription": "onBoarder_part1 description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}

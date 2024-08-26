@@ -1,0 +1,166 @@
+@import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
+.formBody {
+
+  /* Form styles */
+  input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  input[type=button] {
+    width: 100%;
+    background-color: #7e0303;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  input[type=button]:hover {
+    background-color: #7e0303;
+  }
+  
+  div {
+    border-radius: 5px;
+    background-color: #ffffff;
+    padding: 20px;
+  }
+
+  #BttnEmp {
+    display: none;
+  }
+
+  #NextTemplate {
+    display: none;
+  }
+
+  #BackBasicDetails {
+    display: none;
+  }
+
+  #BackTemplate {
+    display: none;
+  }
+
+  #Approver {
+    display: none;
+  }
+
+  #TemplateSelection {
+    display: none;
+  }
+
+  #NavigationButtonsLeft {
+    width: 47%; 
+    float:left    
+  }
+
+  #NavigationButtonsRight {
+    width: 47%; 
+    float:Right    
+  }
+  
+  /* Breadcrumb */
+
+  /* Style the list */
+  ul.breadcrumb {
+    padding: 10px 16px;
+    list-style: none;
+    background-color: #ffffff;
+  }
+
+  /* Display list items side by side */
+  ul.breadcrumb li {
+    display: inline;
+    font-size: 18px;
+  }
+
+  /* Add a slash symbol (/) before/behind each list item */
+  ul.breadcrumb li+li:before {
+    padding: 8px;
+    color: black;
+    content: "/\00a0";
+  }
+
+  /* Add a color to all links inside the list */
+  ul.breadcrumb li a {
+    color: #0275d8;
+    text-decoration: none;
+  }
+
+  /* Add a color on mouse-over */
+  ul.breadcrumb li a:hover {
+    color: #01447e;
+    text-decoration: underline;
+  }}
+
+.buttonsLeft{
+width: 48%;
+float: left;
+
+/* Form styles */
+input[type=text], select {
+width: 100%;
+padding: 12px 20px;
+margin: 8px 0;
+display: inline-block;
+border: 1px solid #ccc;
+border-radius: 4px;
+box-sizing: border-box;
+}
+
+input[type=button] {
+width: 100%;
+background-color: #7e0303;
+color: white;
+padding: 14px 20px;
+margin: 8px 0;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+}
+
+input[type=button]:hover {
+background-color: #7e0303;
+}
+
+}
+
+.buttonsRight{
+width: 48%;
+float: right;
+
+/* Form styles */
+input[type=text], select {
+width: 100%;
+padding: 12px 20px;
+margin: 8px 0;
+display: inline-block;
+border: 1px solid #ccc;
+border-radius: 4px;
+box-sizing: border-box;
+}
+
+input[type=button] {
+width: 100%;
+background-color: #7e0303;
+color: white;
+padding: 14px 20px;
+margin: 8px 0;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+}
+
+input[type=button]:hover {
+background-color: #7e0303;
+}
+
+}
