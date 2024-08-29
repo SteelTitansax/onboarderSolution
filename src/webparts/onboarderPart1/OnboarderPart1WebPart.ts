@@ -8,6 +8,7 @@ import type { IReadonlyTheme } from '@microsoft/sp-component-base';
 
 import styles from './OnboarderPart1WebPart.module.scss';
 import * as strings from 'OnboarderPart1WebPartStrings';
+import {ISPHttpClientOptions, SPHttpClient,SPHttpClientResponse} from '@microsoft/sp-http';
 
 export interface IOnboarderPart1WebPartProps {
   description: string;
@@ -28,21 +29,21 @@ export default class OnboarderPart1WebPart extends BaseClientSideWebPart<IOnboar
 
           <p> Please the fill in the form basic details </p>
 
-          <input type="text" id="Name" placeholder="Name" name="Name" />
-          <input type="text" id="Surname" placeholder="Surname" name="Surname" />
-          <input type="text" id="Role" placeholder="Role" name="Role" />
-          <input type="text" id="OnboardingDate" placeholder="OnboardingDate" name="OnboardingDate" />
-          <input type="text" id="MaterialDelivered" placeholder="MaterialDelivered" name="MaterialDelivered" />
-          <input type="text" id="OfficeTraining" placeholder="OfficeTraining" name="OfficeTraining" />
-          <input type="text" id="RoleTraning" placeholder="RoleTraning" name="RoleTraning" />
-          <input type="text" id="SecurityCardDelivered" placeholder="SecurityCardDelivered" name="SecurityCardDelivered" />
-          <input type="text" id="OnboardingDocumentsSigned" placeholder="OnboardingDocumentsSigned" name="OnboardingDocumentsSigned" />
+          <input type="text" id="name" placeholder="Name" name="Name" />
+          <input type="text" id="surname" placeholder="Surname" name="Surname" />
+          <input type="text" id="role" placeholder="Role" name="Role" />
+          <input type="text" id="onboardingDate" placeholder="OnboardingDate" name="OnboardingDate" />
+          <input type="text" id="materialDelivered" placeholder="MaterialDelivered" name="MaterialDelivered" />
+          <input type="text" id="officeTraining" placeholder="OfficeTraining" name="OfficeTraining" />
+          <input type="text" id="roleTraning" placeholder="RoleTraning" name="RoleTraning" />
+          <input type="text" id="securityCardDelivered" placeholder="SecurityCardDelivered" name="SecurityCardDelivered" />
+          <input type="text" id="onboardingDocumentsSigned" placeholder="OnboardingDocumentsSigned" name="OnboardingDocumentsSigned" />
         
         </div>
         
         
         <!-- Approver -->
-        <div class=${styles.formBody} id="Approver">
+        <div class=${styles.formBody} id="approver">
           <p> Please the fill the Approver Person </p>
           <input type="text" id="approver" placeholder="Contact Person" name="Contact Person" />
 
@@ -73,6 +74,8 @@ export default class OnboarderPart1WebPart extends BaseClientSideWebPart<IOnboar
     this._initialLayout();
     this._showNextStep();
     this._BackBasicDetails();
+    this._bindSave();
+
 
   }
     private _initialLayout(): void {
@@ -169,7 +172,67 @@ export default class OnboarderPart1WebPart extends BaseClientSideWebPart<IOnboar
   } else {
     console.error("Button element '#BackBasicDetails' not found.");
   }
+}
+  private generateRandomString(length: number): string {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
   
+  private _bindSave(): void {
+
+    const button = this.domElement.querySelector('#BttnEmp');
+    if (button) {
+        button.addEventListener('click', () => { this.addListItem(); });
+    } else {
+        console.error("Button element '#BttnEmp' not found.");
+    }
+  
+  }
+
+  private addListItem(): void {
+    var name = (document.getElementById("Name") as HTMLInputElement).value;
+    var surname = (document.getElementById("Surname") as HTMLInputElement).value;
+    var role = (document.getElementById("Role") as HTMLInputElement).value;
+    var onboardingDate = (document.getElementById("OnboardingDate") as HTMLInputElement).value;
+    var materialDelivered = (document.getElementById("MaterialDelivered") as HTMLInputElement).value;
+    var officeTraining = (document.getElementById("OfficeTraining") as HTMLInputElement).value;
+    var roleTraning = (document.getElementById("RoleTraning") as HTMLInputElement).value;
+    var securityCardDelivered = (document.getElementById("SecurityCardDelivered") as HTMLInputElement).value;
+    var onboardingDocumentsSigned = (document.getElementById("OnboardingDocumentsSigned") as HTMLInputElement).value;
+
+    // Generar un título aleatorio
+    const randomTitle = this.generateRandomString(10); // Aquí puedes especificar la longitud del string
+
+    const siteUrl: string = "https://t8656.sharepoint.com/sites/Sharepoint_Interaction/_api/web/lists/getbytitle('PoC_SharepointInteraction')/items";
+    const itemBody: any = {
+        "Title": randomTitle, // Asignar el título aleatorio aquí
+        "Name": name,
+        "Surame": surname,
+        "Role": role,
+        "OnboardingDate": onboardingDate,
+        "MaterialDelivered": materialDelivered,
+        "OfficeTraining_x003f_": officeTraining,
+        "RoleTraning_x003f_": roleTraning,
+        "SecurityCardDelivered_x003f_": securityCardDelivered,
+        "OnboardingDocumentsSigned_x003f_": onboardingDocumentsSigned
+    };
+    const spHttpClientOptions: ISPHttpClientOptions = {
+        "body": JSON.stringify(itemBody)
+    };
+
+    this.context.spHttpClient.post(siteUrl, SPHttpClient.configurations.v1, spHttpClientOptions)
+        .then((response: SPHttpClientResponse) => {
+            alert("Success!!");
+        })
+        .catch((error) => {
+            console.error("Error adding list item:", error);
+            alert("Error adding item.");
+        });
 }
   protected onInit(): Promise<void> {
     return this._getEnvironmentMessage().then(message => {
