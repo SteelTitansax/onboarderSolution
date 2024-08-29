@@ -194,52 +194,88 @@ export default class OnboarderPart1WebPart extends BaseClientSideWebPart<IOnboar
   
   }
 
-  private addListItem(): void {
-    var name = (document.getElementById("Name") as HTMLInputElement).value;
-    var surname = (document.getElementById("Surname") as HTMLInputElement).value;
-    var role = (document.getElementById("Role") as HTMLInputElement).value;
-    var onboardingDate = (document.getElementById("OnboardingDate") as HTMLInputElement).value;
-    var materialDelivered = (document.getElementById("MaterialDelivered") as HTMLInputElement).value;
-    var officeTraining = (document.getElementById("OfficeTraining") as HTMLInputElement).value;
-    var roleTraning = (document.getElementById("RoleTraning") as HTMLInputElement).value;
-    var securityCardDelivered = (document.getElementById("SecurityCardDelivered") as HTMLInputElement).value;
-    var onboardingDocumentsSigned = (document.getElementById("OnboardingDocumentsSigned") as HTMLInputElement).value;
+    private addListItem(): void {
+      var name = (document.getElementById("name") as HTMLInputElement).value;
+      var surname = (document.getElementById("surname") as HTMLInputElement).value;
+      var role = (document.getElementById("role") as HTMLInputElement).value;
+      var onboardingDate = (document.getElementById("onboardingDate") as HTMLInputElement).value;
+      var materialDelivered = (document.getElementById("materialDelivered") as HTMLInputElement).value;
+      var officeTraining = (document.getElementById("officeTraining") as HTMLInputElement).value;
+      var roleTraning = (document.getElementById("roleTraning") as HTMLInputElement).value;
+      var securityCardDelivered = (document.getElementById("securityCardDelivered") as HTMLInputElement).value;
+      var onboardingDocumentsSigned = (document.getElementById("onboardingDocumentsSigned") as HTMLInputElement).value;
 
-    // Generar un título aleatorio
-    const randomTitle = this.generateRandomString(10); // Aquí puedes especificar la longitud del string
+      // Generar un título aleatorio
+      const randomTitle = this.generateRandomString(10); // Aquí puedes especificar la longitud del string
 
-    const siteUrl: string = "https://t8656.sharepoint.com/sites/Sharepoint_Interaction/_api/web/lists/getbytitle('PoC_SharepointInteraction')/items";
-    const itemBody: any = {
-        "Title": randomTitle, // Asignar el título aleatorio aquí
-        "Name": name,
-        "Surame": surname,
-        "Role": role,
-        "OnboardingDate": onboardingDate,
-        "MaterialDelivered": materialDelivered,
-        "OfficeTraining_x003f_": officeTraining,
-        "RoleTraning_x003f_": roleTraning,
-        "SecurityCardDelivered_x003f_": securityCardDelivered,
-        "OnboardingDocumentsSigned_x003f_": onboardingDocumentsSigned
-    };
-    const spHttpClientOptions: ISPHttpClientOptions = {
-        "body": JSON.stringify(itemBody)
-    };
+      const siteUrl: string = "https://t8656.sharepoint.com/sites/Sharepoint_Interaction/_api/web/lists/getbytitle('PoC_SharepointInteraction')/items";
+      const itemBody: any = {
+          "Title": randomTitle, // Asignar el título aleatorio aquí
+          "Name": name,
+          "Surame": surname,
+          "Role": role,
+          "OnboardingDate": onboardingDate,
+          "MaterialDelivered": materialDelivered,
+          "OfficeTraining_x003f_": officeTraining,
+          "RoleTraning_x003f_": roleTraning,
+          "SecurityCardDelivered_x003f_": securityCardDelivered,
+          "OnboardingDocumentsSigned_x003f_": onboardingDocumentsSigned
+      };
+      const spHttpClientOptions: ISPHttpClientOptions = {
+          "body": JSON.stringify(itemBody)
+      };
 
-    this.context.spHttpClient.post(siteUrl, SPHttpClient.configurations.v1, spHttpClientOptions)
-        .then((response: SPHttpClientResponse) => {
-            alert("Success!!");
-        })
-        .catch((error) => {
-            console.error("Error adding list item:", error);
-            alert("Error adding item.");
-        });
-}
+      this.context.spHttpClient.post(siteUrl, SPHttpClient.configurations.v1, spHttpClientOptions)
+          .then((response: SPHttpClientResponse) => {
+              if (response.ok) {
+                  alert("Success!!");
+                  // Llamar a la función para añadir ítems en la lista auxiliar
+                  this.addAuxListItems();
+              } else {
+                  console.error("Error adding list item:", response.statusText);
+                  alert("Error adding item.");
+              }
+          })
+          .catch((error) => {
+              console.error("Error adding list item:", error);
+              alert("Error adding item.");
+          });
+  }
+  
   protected onInit(): Promise<void> {
     return this._getEnvironmentMessage().then(message => {
       
     });
   }
 
+    private addAuxListItems(): void {
+      const siteUrl: string = "https://t8656.sharepoint.com/sites/Sharepoint_Interaction/_api/web/lists/getbytitle('PoC_SharepointInteractionAux')/items";
+
+      // Datos para los tres ítems
+      const items = [
+          { "Title": this.generateRandomString(10), "Name": (document.getElementById("approver") as HTMLInputElement).value, "Role": "Manager" },
+          { "Title": this.generateRandomString(10), "Name": "Manuel Portero", "Role": "HelpDesk" },
+          { "Title": this.generateRandomString(10), "Name": "Rosa Hernandez", "Role": "FrontDesk" }
+      ];
+
+      items.forEach(itemBody => {
+          const spHttpClientOptions: ISPHttpClientOptions = {
+              "body": JSON.stringify(itemBody)
+          };
+
+          this.context.spHttpClient.post(siteUrl, SPHttpClient.configurations.v1, spHttpClientOptions)
+              .then((response: SPHttpClientResponse) => {
+                  if (!response.ok) {
+                      console.error("Error adding aux list item:", response.statusText);
+                      alert("Error adding item to aux list.");
+                  }
+              })
+              .catch((error) => {
+                  console.error("Error adding aux list item:", error);
+                  alert("Error adding item to aux list.");
+              });
+      });
+  }
 
 
   private _getEnvironmentMessage(): Promise<string> {
