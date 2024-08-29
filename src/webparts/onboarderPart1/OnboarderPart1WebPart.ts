@@ -234,6 +234,45 @@ export default class OnboarderPart1WebPart extends BaseClientSideWebPart<IOnboar
             alert("Error adding item.");
         });
 }
+
+  /*
+  
+  private _bindSave(): void {
+
+    const button = this.domElement.querySelector('#BttnEmp');
+    if (button) {
+        button.addEventListener('click', () => { this.addListItem(); });
+    } else {
+        console.error("Button element '#BttnEmp' not found.");
+    }
+  
+  }
+
+  private addListItem(): void{
+    
+    
+    var contractNumber = (document.getElementById("contractNumber") as HTMLInputElement).value;
+    var country = (document.getElementById("country") as HTMLInputElement).value;
+    //var nextAction = (document.getElementById("nextAction") as HTMLInputElement).value;
+    //var customerName = (document.getElementById("customerName") as HTMLInputElement).value;
+    //var industrySegment = (document.getElementById("industrySegment") as HTMLInputElement).value;
+    //var salesUnit = (document.getElementById("salesUnit") as HTMLInputElement).value;
+    //var salesSegment = (document.getElementById("salesSegment") as HTMLInputElement).value;
+    //var approver = (document.getElementById("approver") as HTMLInputElement).value;
+    //var reason = (document.getElementById("reason") as HTMLInputElement).value;
+    //var product = (document.getElementById("product") as HTMLInputElement).value;
+    //var lastChange = (document.getElementById("lastChange") as HTMLInputElement).value;
+    //var comments = (document.getElementById("comments") as HTMLInputElement).value;
+    console.log(contractNumber);
+    console.log(country);
+    const siteUrl: string = "https://t8656.sharepoint.com/sites/Sharepoint_Interaction/_api/web/lists/getbytitle('PoC_ContractHUB2')/items"
+    const itemBody: any = {
+
+      "Title": 'TestWebpart',
+      "Description": 'TestWebPart'
+    };
+  
+  */
   protected onInit(): Promise<void> {
     return this._getEnvironmentMessage().then(message => {
       
