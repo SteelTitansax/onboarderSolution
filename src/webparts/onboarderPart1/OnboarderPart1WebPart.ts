@@ -173,15 +173,7 @@ export default class OnboarderPart1WebPart extends BaseClientSideWebPart<IOnboar
     console.error("Button element '#BackBasicDetails' not found.");
   }
 }
-  private generateRandomString(length: number): string {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
-    const charactersLength = characters.length;
-    for (let i = 0; i < length; i++) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-  }
+  
   
   private _bindSave(): void {
 
@@ -205,12 +197,10 @@ export default class OnboarderPart1WebPart extends BaseClientSideWebPart<IOnboar
       var securityCardDelivered = (document.getElementById("securityCardDelivered") as HTMLInputElement).value;
       var onboardingDocumentsSigned = (document.getElementById("onboardingDocumentsSigned") as HTMLInputElement).value;
 
-      // Generar un título aleatorio
-      const randomTitle = this.generateRandomString(10); // Aquí puedes especificar la longitud del string
 
       const siteUrl: string = "https://t8656.sharepoint.com/sites/Sharepoint_Interaction/_api/web/lists/getbytitle('PoC_SharepointInteraction')/items";
       const itemBody: any = {
-          "Title": randomTitle, // Asignar el título aleatorio aquí
+          "Title": name+"_"+surname, 
           "Name": name,
           "Surame": surname,
           "Role": role,
@@ -230,7 +220,7 @@ export default class OnboarderPart1WebPart extends BaseClientSideWebPart<IOnboar
               if (response.ok) {
                   alert("Success!!");
                   // Llamar a la función para añadir ítems en la lista auxiliar
-                  this.addAuxListItems();
+                  this.addAuxListItems(name+"_"+surname);
               } else {
                   console.error("Error adding list item:", response.statusText);
                   alert("Error adding item.");
@@ -248,14 +238,14 @@ export default class OnboarderPart1WebPart extends BaseClientSideWebPart<IOnboar
     });
   }
 
-    private addAuxListItems(): void {
+    private addAuxListItems(fullname : string): void {
       const siteUrl: string = "https://t8656.sharepoint.com/sites/Sharepoint_Interaction/_api/web/lists/getbytitle('PoC_SharepointInteractionAux')/items";
-
+      
       // Datos para los tres ítems
       const items = [
-          { "Title": this.generateRandomString(10), "Name": (document.getElementById("approver") as HTMLInputElement).value, "Role": "Manager" },
-          { "Title": this.generateRandomString(10), "Name": "Manuel Portero", "Role": "HelpDesk" },
-          { "Title": this.generateRandomString(10), "Name": "Rosa Hernandez", "Role": "FrontDesk" }
+          { "Title": fullname, "Name": (document.getElementById("approver") as HTMLInputElement).value, "Role": "Manager" },
+          { "Title": fullname, "Name": "Manuel Portero", "Role": "HelpDesk" },
+          { "Title": fullname, "Name": "Rosa Hernandez", "Role": "FrontDesk" }
       ];
 
       items.forEach(itemBody => {
