@@ -86,7 +86,7 @@ export default class OnboarderPart1WebPart extends BaseClientSideWebPart<IOnboar
         step1.style.display = 'block';  
       }
 
-      var step2 =  document.getElementById('Approver');
+      var step2 =  document.getElementById('approver');
       if(step2)
       {
         step2.style.display = 'none';  
@@ -113,7 +113,7 @@ export default class OnboarderPart1WebPart extends BaseClientSideWebPart<IOnboar
             step1.style.display = 'none';  
           }
   
-          var step2 =  document.getElementById("Approver");
+          var step2 =  document.getElementById("approver");
           if(step2)
           {
             step2.style.display = 'block';  
@@ -150,7 +150,7 @@ export default class OnboarderPart1WebPart extends BaseClientSideWebPart<IOnboar
           step1.style.display = 'block';  
         }
 
-        var step2 =  document.getElementById("Approver");
+        var step2 =  document.getElementById("approver");
         if(step2)
         {
           step2.style.display = 'none';  
@@ -218,9 +218,10 @@ export default class OnboarderPart1WebPart extends BaseClientSideWebPart<IOnboar
       this.context.spHttpClient.post(siteUrl, SPHttpClient.configurations.v1, spHttpClientOptions)
           .then((response: SPHttpClientResponse) => {
               if (response.ok) {
-                  alert("Success!!");
+                 
                   // Llamar a la función para añadir ítems en la lista auxiliar
                   this.addAuxListItems(name+"_"+surname);
+                  window.location.href = "https://t8656.sharepoint.com/sites/Sharepoint_Interaction/SitePages/Onboarder_Tracker.aspx?workerName=" + name+"_"+surname;
               } else {
                   console.error("Error adding list item:", response.statusText);
                   alert("Error adding item.");
