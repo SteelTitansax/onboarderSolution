@@ -45,7 +45,7 @@ export default class OnboarderPart1WebPart extends BaseClientSideWebPart<IOnboar
         <!-- Approver -->
         <div class=${styles.formBody} id="approver">
           <p> Please the fill the Approver Person </p>
-          <input type="text" id="approver" placeholder="Contact Person" name="Contact Person" />
+          <input type="text" id="approverName" placeholder="Contact Person" name="Contact Person" />
 
         </div>
         
@@ -218,7 +218,6 @@ export default class OnboarderPart1WebPart extends BaseClientSideWebPart<IOnboar
       this.context.spHttpClient.post(siteUrl, SPHttpClient.configurations.v1, spHttpClientOptions)
           .then((response: SPHttpClientResponse) => {
               if (response.ok) {
-                 
                   // Llamar a la función para añadir ítems en la lista auxiliar
                   this.addAuxListItems(name+"_"+surname);
                   window.location.href = "https://t8656.sharepoint.com/sites/Sharepoint_Interaction/SitePages/Onboarder_Tracker.aspx?workerName=" + name+"_"+surname;
@@ -244,9 +243,9 @@ export default class OnboarderPart1WebPart extends BaseClientSideWebPart<IOnboar
       
       // Datos para los tres ítems
       const items = [
-          { "Title": fullname, "Name": (document.getElementById("approver") as HTMLInputElement).value, "Role": "Manager" },
-          { "Title": fullname, "Name": "Manuel Portero", "Role": "HelpDesk" },
-          { "Title": fullname, "Name": "Rosa Hernandez", "Role": "FrontDesk" }
+          { "Title": fullname, "Name": (document.getElementById("approverName") as HTMLInputElement).value, "Role": "Manager","Status": "Pending"},
+          { "Title": fullname, "Name": "Manuel Portero", "Role": "HelpDesk","Status": "Pending"},
+          { "Title": fullname, "Name": "Rosa Hernandez", "Role": "FrontDesk","Status": "Pending"}
       ];
 
       items.forEach(itemBody => {
@@ -256,14 +255,10 @@ export default class OnboarderPart1WebPart extends BaseClientSideWebPart<IOnboar
 
           this.context.spHttpClient.post(siteUrl, SPHttpClient.configurations.v1, spHttpClientOptions)
               .then((response: SPHttpClientResponse) => {
-                  if (!response.ok) {
-                      console.error("Error adding aux list item:", response.statusText);
-                      alert("Error adding item to aux list.");
-                  }
+                      console.log("adding aux list item:", response.statusText);
               })
               .catch((error) => {
                   console.error("Error adding aux list item:", error);
-                  alert("Error adding item to aux list.");
               });
       });
   }
