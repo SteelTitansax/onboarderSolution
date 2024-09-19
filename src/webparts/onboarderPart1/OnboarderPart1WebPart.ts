@@ -78,6 +78,32 @@ export default class OnboarderPart1WebPart extends BaseClientSideWebPart<IOnboar
 
 
   }
+
+ /*
+ // adding Url 
+ (document.getElementById("draftPdfViewer") as HTMLInputElement).src = "";
+ (document.getElementById("spinner") as HTMLInputElement).style.display="block";
+
+ var embedPdfViewerUrlFiller = () => {
+              this._getListItemDataAmpliated(contractNumberValue)
+                  .then((response) => {
+
+                      var lengthResponseValue = response.value.length - 1;
+                      var pdfUrl = "https://xxxxxxxx.sharepoint.com" + response.value[lengthResponseValue].AttachmentFiles[0].ServerRelativeUrl;
+
+                      // removing spinner
+                      (document.getElementById("spinner") as HTMLInputElement).style.display="none";
+                      // adding Url 
+                      (document.getElementById("draftPdfViewer") as HTMLInputElement).src = pdfUrl;
+                  })
+                  .catch(() => {
+                      setTimeout(embedPdfViewerUrlFiller, 4000);
+                  });
+          }
+
+  setTimeout(embedPdfViewerUrlFiller, 4000);
+  */
+  
     private _initialLayout(): void {
       // Initial Layout 
       var step1 =  document.getElementById('BasicDetails');
